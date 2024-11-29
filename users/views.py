@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 def login_view(request):
     if request.method == "POST":
@@ -15,8 +16,7 @@ def login_view(request):
     return render(request, 'login.html')
 
 
-from django.contrib.auth.decorators import login_required
 
 @login_required
 def home_view(request):
-    return render(request, 'users/home.html')
+    return render(request, 'home.html')

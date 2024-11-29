@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'axes',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware',
 ]
 
 ROOT_URLCONF = 'LoginVulnerabilidad.urls'
@@ -125,3 +127,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
+
+
+
+AUTHENTICATION_BACKENDS = (
+    'axes.backends.AxesStandaloneBackend',  # Backend para gestionar intentos fallidos
+    'django.contrib.auth.backends.ModelBackend',  # Backend tradicional de Django para autenticación
+)
+
+# Configuración de django-axes para proteger contra ataques de fuerza bruta
+AXES_FAILURE_LIMIT = 5  # Número de intentos fallidos antes de bloquear
+AXES_COOLOFF_TIME = 1  # Tiempo en horas para que el bloqueo se levante
+AXES_LOCK_OUT_AT_FAILURE = True  # Bloqueo inmediato al superar el límite
+
+# Cookies seguras y no accesibles por JavaScript
+SESSION_COOKIE_SECURE = True  # Asegura que la cookie solo se envíe por HTTPS
+CSRF_COOKIE_SECURE = True  # Asegura que la cookie CSRF solo se envíe por HTTPS
+SESSION_COOKIE_HTTPONLY = True  # La cookie no debe ser accesible desde JavaScript
+CSRF_COOKIE_HTTPONLY = True  # La cookie CSRF no debe ser accesible desde JavaScript
+
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # La sesión expira cuando el navegador se cierra
+SESSION_COOKIE_AGE = 1800  # Establecer un límite de tiempo para la sesión (en segundos)
