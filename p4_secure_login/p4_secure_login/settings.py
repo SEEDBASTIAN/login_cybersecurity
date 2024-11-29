@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'users',
     'crispy_forms',
     'axes',  # Para proteger el login
-    'captcha',  # Para reCAPTCHA
+    'django_otp',
+    'two_factor',
+    'django_otp.plugins.otp_static',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'axes.middleware.AxesMiddleware',  # Middleware de Django Axes
+    'django_otp.middleware.OTPMiddleware',
 ]
 
 ROOT_URLCONF = 'p4_secure_login.urls'
@@ -105,6 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -121,6 +125,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # O la ruta de tu directorio de archivos estáticos
+]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -139,3 +148,21 @@ SESSION_COOKIE_SECURE = True
 
 RECAPTCHA_PUBLIC_KEY = 'p4securelogin'
 RECAPTCHA_PRIVATE_KEY = '6LeRio0qAAAAAEb0sDwjT7bnjxogbMCzCe5cFhza'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
