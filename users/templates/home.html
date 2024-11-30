@@ -31,7 +31,19 @@
         p {
             font-size: 16px;
             color: #555;
-            margin-bottom: 0;
+            margin-bottom: 15px;
+        }
+        a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #007BFF;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        a:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -39,6 +51,8 @@
     <div class="welcome-container">
         <h2>Bienvenido, {{ request.user.username }}</h2>
         <p>Has iniciado sesión correctamente.</p>
+        <a href="{% url 'logout' %}">Cerrar sesión</a>
     </div>
 </body>
 </html>
+
