@@ -139,7 +139,7 @@ AUTHENTICATION_BACKENDS = (
 
 # Configuración de django-axes para proteger contra ataques de fuerza bruta
 AXES_FAILURE_LIMIT = 5  # Número de intentos fallidos antes de bloquear
-AXES_COOLOFF_TIME = 1  # Tiempo en horas para que el bloqueo se levante
+AXES_COOLOFF_TIME = 0.05  # Tiempo en horas para que el bloqueo se levante
 AXES_LOCK_OUT_AT_FAILURE = True  # Bloqueo inmediato al superar el límite
 
 # Cookies seguras y no accesibles por JavaScript
@@ -150,4 +150,4 @@ CSRF_COOKIE_HTTPONLY = True  # La cookie CSRF no debe ser accesible desde JavaSc
 
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # La sesión expira cuando el navegador se cierra
-SESSION_COOKIE_AGE = 1800  # Establecer un límite de tiempo para la sesión (en segundos)
+SESSION_COOKIE_AGE = 1200  # Establecer un límite de tiempo para la sesión (en segundos)
